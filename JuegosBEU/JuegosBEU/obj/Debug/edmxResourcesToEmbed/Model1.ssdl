@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DeliveryJWModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Banco">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" />
+    <Property Name="numero_Cuenta" Type="varchar" MaxLength="50" />
+    <Property Name="tipo_Cuenta" Type="varchar" MaxLength="5" />
+    <Property Name="propietario_Nombre_Cuenta" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="CabeceraPedido">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fecha_pedido" Type="date" />
+    <Property Name="estado_pedido" Type="varchar" MaxLength="5" />
+    <Property Name="numero_pedido" Type="varchar" MaxLength="50" />
+    <Property Name="id_Usuario" Type="int" />
+    <Property Name="total" Type="decimal" Precision="8" Scale="4" />
+  </EntityType>
+  <EntityType Name="DetallePago">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fecha_Pago" Type="date" />
+    <Property Name="numero_Ticket" Type="varchar" MaxLength="50" />
+    <Property Name="pais" Type="varchar" MaxLength="50" />
+    <Property Name="provincia" Type="varchar" MaxLength="50" />
+    <Property Name="ciudad" Type="varchar" MaxLength="50" />
+    <Property Name="imagen_recibo" Type="varchar" MaxLength="100" />
+    <Property Name="id_Banco" Type="int" />
+    <Property Name="id_Pedido" Type="int" />
+    <Property Name="imagen" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="DetallePedido">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cantidad" Type="int" />
+    <Property Name="subtotal" Type="decimal" Precision="8" Scale="4" />
+    <Property Name="iva" Type="decimal" Precision="8" Scale="4" />
+    <Property Name="id_Juego" Type="int" />
+    <Property Name="id_Cabecera" Type="int" />
+  </EntityType>
+  <EntityType Name="Juego">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="titulo" Type="varchar" MaxLength="50" />
+    <Property Name="precio" Type="decimal" Precision="8" Scale="4" />
+    <Property Name="plataforma" Type="varchar" MaxLength="50" />
+    <Property Name="estado" Type="varchar" MaxLength="5" />
+    <Property Name="fecha_lanzamiento" Type="date" />
+    <Property Name="genero" Type="varchar" MaxLength="50" />
+    <Property Name="idioma" Type="varchar" MaxLength="50" />
+    <Property Name="imagen" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" />
+    <Property Name="apellido" Type="varchar" MaxLength="50" />
+    <Property Name="cedula" Type="varchar" MaxLength="15" />
+    <Property Name="telefono" Type="varchar" MaxLength="15" />
+    <Property Name="correo" Type="varchar" MaxLength="50" />
+    <Property Name="usuario_sesion" Type="varchar" MaxLength="50" />
+    <Property Name="contrasena" Type="varchar" MaxLength="50" />
+    <Property Name="pais" Type="varchar" MaxLength="50" />
+    <Property Name="ciudad" Type="varchar" MaxLength="50" />
+    <Property Name="rol" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_CabeceraPedido_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+    <End Role="CabeceraPedido" Type="Self.CabeceraPedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="CabeceraPedido">
+        <PropertyRef Name="id_Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetallePago_Banco">
+    <End Role="Banco" Type="Self.Banco" Multiplicity="0..1" />
+    <End Role="DetallePago" Type="Self.DetallePago" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Banco">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="DetallePago">
+        <PropertyRef Name="id_Banco" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetallePago_CabeceraPedido">
+    <End Role="CabeceraPedido" Type="Self.CabeceraPedido" Multiplicity="0..1" />
+    <End Role="DetallePago" Type="Self.DetallePago" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CabeceraPedido">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="DetallePago">
+        <PropertyRef Name="id_Pedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetallePedido_CabeceraPedido">
+    <End Role="CabeceraPedido" Type="Self.CabeceraPedido" Multiplicity="0..1" />
+    <End Role="DetallePedido" Type="Self.DetallePedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CabeceraPedido">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="DetallePedido">
+        <PropertyRef Name="id_Cabecera" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetallePedido_Juego">
+    <End Role="Juego" Type="Self.Juego" Multiplicity="0..1" />
+    <End Role="DetallePedido" Type="Self.DetallePedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Juego">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="DetallePedido">
+        <PropertyRef Name="id_Juego" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DeliveryJWModelStoreContainer">
+    <EntitySet Name="Banco" EntityType="Self.Banco" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CabeceraPedido" EntityType="Self.CabeceraPedido" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DetallePago" EntityType="Self.DetallePago" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DetallePedido" EntityType="Self.DetallePedido" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Juego" EntityType="Self.Juego" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_CabeceraPedido_Usuario" Association="Self.FK_CabeceraPedido_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="CabeceraPedido" EntitySet="CabeceraPedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetallePago_Banco" Association="Self.FK_DetallePago_Banco">
+      <End Role="Banco" EntitySet="Banco" />
+      <End Role="DetallePago" EntitySet="DetallePago" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetallePago_CabeceraPedido" Association="Self.FK_DetallePago_CabeceraPedido">
+      <End Role="CabeceraPedido" EntitySet="CabeceraPedido" />
+      <End Role="DetallePago" EntitySet="DetallePago" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetallePedido_CabeceraPedido" Association="Self.FK_DetallePedido_CabeceraPedido">
+      <End Role="CabeceraPedido" EntitySet="CabeceraPedido" />
+      <End Role="DetallePedido" EntitySet="DetallePedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetallePedido_Juego" Association="Self.FK_DetallePedido_Juego">
+      <End Role="Juego" EntitySet="Juego" />
+      <End Role="DetallePedido" EntitySet="DetallePedido" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

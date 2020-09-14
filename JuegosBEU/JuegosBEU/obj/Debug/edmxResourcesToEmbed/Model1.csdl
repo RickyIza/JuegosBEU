@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DeliveryJWModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Banco">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="numero_Cuenta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tipo_Cuenta" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="propietario_Nombre_Cuenta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="DetallePago" Relationship="Self.FK_DetallePago_Banco" FromRole="Banco" ToRole="DetallePago" />
+  </EntityType>
+  <EntityType Name="CabeceraPedido">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fecha_pedido" Type="DateTime" Precision="0" />
+    <Property Name="estado_pedido" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="numero_pedido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="id_Usuario" Type="Int32" />
+    <Property Name="total" Type="Decimal" Precision="8" Scale="4" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK_CabeceraPedido_Usuario" FromRole="CabeceraPedido" ToRole="Usuario" />
+    <NavigationProperty Name="DetallePago" Relationship="Self.FK_DetallePago_CabeceraPedido" FromRole="CabeceraPedido" ToRole="DetallePago" />
+    <NavigationProperty Name="DetallePedido" Relationship="Self.FK_DetallePedido_CabeceraPedido" FromRole="CabeceraPedido" ToRole="DetallePedido" />
+  </EntityType>
+  <EntityType Name="DetallePago">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fecha_Pago" Type="DateTime" Precision="0" />
+    <Property Name="numero_Ticket" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="pais" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ciudad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="imagen_recibo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="id_Banco" Type="Int32" />
+    <Property Name="id_Pedido" Type="Int32" />
+    <Property Name="imagen" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Banco" Relationship="Self.FK_DetallePago_Banco" FromRole="DetallePago" ToRole="Banco" />
+    <NavigationProperty Name="CabeceraPedido" Relationship="Self.FK_DetallePago_CabeceraPedido" FromRole="DetallePago" ToRole="CabeceraPedido" />
+  </EntityType>
+  <EntityType Name="DetallePedido">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cantidad" Type="Int32" />
+    <Property Name="subtotal" Type="Decimal" Precision="8" Scale="4" />
+    <Property Name="iva" Type="Decimal" Precision="8" Scale="4" />
+    <Property Name="id_Juego" Type="Int32" />
+    <Property Name="id_Cabecera" Type="Int32" />
+    <NavigationProperty Name="CabeceraPedido" Relationship="Self.FK_DetallePedido_CabeceraPedido" FromRole="DetallePedido" ToRole="CabeceraPedido" />
+    <NavigationProperty Name="Juego" Relationship="Self.FK_DetallePedido_Juego" FromRole="DetallePedido" ToRole="Juego" />
+  </EntityType>
+  <EntityType Name="Juego">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="precio" Type="Decimal" Precision="8" Scale="4" />
+    <Property Name="plataforma" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="estado" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="fecha_lanzamiento" Type="DateTime" Precision="0" />
+    <Property Name="genero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="idioma" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="imagen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="DetallePedido" Relationship="Self.FK_DetallePedido_Juego" FromRole="Juego" ToRole="DetallePedido" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="cedula" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="usuario_sesion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="contrasena" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="pais" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ciudad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="rol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CabeceraPedido" Relationship="Self.FK_CabeceraPedido_Usuario" FromRole="Usuario" ToRole="CabeceraPedido" />
+  </EntityType>
+  <Association Name="FK_DetallePago_Banco">
+    <End Role="Banco" Type="Self.Banco" Multiplicity="0..1" />
+    <End Role="DetallePago" Type="Self.DetallePago" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Banco">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="DetallePago">
+        <PropertyRef Name="id_Banco" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CabeceraPedido_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+    <End Role="CabeceraPedido" Type="Self.CabeceraPedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="CabeceraPedido">
+        <PropertyRef Name="id_Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetallePago_CabeceraPedido">
+    <End Role="CabeceraPedido" Type="Self.CabeceraPedido" Multiplicity="0..1" />
+    <End Role="DetallePago" Type="Self.DetallePago" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CabeceraPedido">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="DetallePago">
+        <PropertyRef Name="id_Pedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetallePedido_CabeceraPedido">
+    <End Role="CabeceraPedido" Type="Self.CabeceraPedido" Multiplicity="0..1" />
+    <End Role="DetallePedido" Type="Self.DetallePedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CabeceraPedido">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="DetallePedido">
+        <PropertyRef Name="id_Cabecera" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetallePedido_Juego">
+    <End Role="Juego" Type="Self.Juego" Multiplicity="0..1" />
+    <End Role="DetallePedido" Type="Self.DetallePedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Juego">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="DetallePedido">
+        <PropertyRef Name="id_Juego" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DeliveryJWEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Banco" EntityType="Self.Banco" />
+    <EntitySet Name="CabeceraPedido" EntityType="Self.CabeceraPedido" />
+    <EntitySet Name="DetallePago" EntityType="Self.DetallePago" />
+    <EntitySet Name="DetallePedido" EntityType="Self.DetallePedido" />
+    <EntitySet Name="Juego" EntityType="Self.Juego" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+    <AssociationSet Name="FK_DetallePago_Banco" Association="Self.FK_DetallePago_Banco">
+      <End Role="Banco" EntitySet="Banco" />
+      <End Role="DetallePago" EntitySet="DetallePago" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CabeceraPedido_Usuario" Association="Self.FK_CabeceraPedido_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="CabeceraPedido" EntitySet="CabeceraPedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetallePago_CabeceraPedido" Association="Self.FK_DetallePago_CabeceraPedido">
+      <End Role="CabeceraPedido" EntitySet="CabeceraPedido" />
+      <End Role="DetallePago" EntitySet="DetallePago" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetallePedido_CabeceraPedido" Association="Self.FK_DetallePedido_CabeceraPedido">
+      <End Role="CabeceraPedido" EntitySet="CabeceraPedido" />
+      <End Role="DetallePedido" EntitySet="DetallePedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetallePedido_Juego" Association="Self.FK_DetallePedido_Juego">
+      <End Role="Juego" EntitySet="Juego" />
+      <End Role="DetallePedido" EntitySet="DetallePedido" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

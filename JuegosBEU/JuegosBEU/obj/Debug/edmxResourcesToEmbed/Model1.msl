@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DeliveryJWModelStoreContainer" CdmEntityContainer="DeliveryJWEntities">
+    <EntitySetMapping Name="Banco">
+      <EntityTypeMapping TypeName="DeliveryJWModel.Banco">
+        <MappingFragment StoreEntitySet="Banco">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="numero_Cuenta" ColumnName="numero_Cuenta" />
+          <ScalarProperty Name="tipo_Cuenta" ColumnName="tipo_Cuenta" />
+          <ScalarProperty Name="propietario_Nombre_Cuenta" ColumnName="propietario_Nombre_Cuenta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CabeceraPedido">
+      <EntityTypeMapping TypeName="DeliveryJWModel.CabeceraPedido">
+        <MappingFragment StoreEntitySet="CabeceraPedido">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="fecha_pedido" ColumnName="fecha_pedido" />
+          <ScalarProperty Name="estado_pedido" ColumnName="estado_pedido" />
+          <ScalarProperty Name="numero_pedido" ColumnName="numero_pedido" />
+          <ScalarProperty Name="id_Usuario" ColumnName="id_Usuario" />
+          <ScalarProperty Name="total" ColumnName="total" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetallePago">
+      <EntityTypeMapping TypeName="DeliveryJWModel.DetallePago">
+        <MappingFragment StoreEntitySet="DetallePago">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="fecha_Pago" ColumnName="fecha_Pago" />
+          <ScalarProperty Name="numero_Ticket" ColumnName="numero_Ticket" />
+          <ScalarProperty Name="pais" ColumnName="pais" />
+          <ScalarProperty Name="provincia" ColumnName="provincia" />
+          <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+          <ScalarProperty Name="imagen_recibo" ColumnName="imagen_recibo" />
+          <ScalarProperty Name="id_Banco" ColumnName="id_Banco" />
+          <ScalarProperty Name="id_Pedido" ColumnName="id_Pedido" />
+          <ScalarProperty Name="imagen" ColumnName="imagen" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetallePedido">
+      <EntityTypeMapping TypeName="DeliveryJWModel.DetallePedido">
+        <MappingFragment StoreEntitySet="DetallePedido">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+          <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+          <ScalarProperty Name="iva" ColumnName="iva" />
+          <ScalarProperty Name="id_Juego" ColumnName="id_Juego" />
+          <ScalarProperty Name="id_Cabecera" ColumnName="id_Cabecera" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Juego">
+      <EntityTypeMapping TypeName="DeliveryJWModel.Juego">
+        <MappingFragment StoreEntitySet="Juego">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="titulo" ColumnName="titulo" />
+          <ScalarProperty Name="precio" ColumnName="precio" />
+          <ScalarProperty Name="plataforma" ColumnName="plataforma" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="fecha_lanzamiento" ColumnName="fecha_lanzamiento" />
+          <ScalarProperty Name="genero" ColumnName="genero" />
+          <ScalarProperty Name="idioma" ColumnName="idioma" />
+          <ScalarProperty Name="imagen" ColumnName="imagen" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuario">
+      <EntityTypeMapping TypeName="DeliveryJWModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido" ColumnName="apellido" />
+          <ScalarProperty Name="cedula" ColumnName="cedula" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="correo" ColumnName="correo" />
+          <ScalarProperty Name="usuario_sesion" ColumnName="usuario_sesion" />
+          <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+          <ScalarProperty Name="pais" ColumnName="pais" />
+          <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+          <ScalarProperty Name="rol" ColumnName="rol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
